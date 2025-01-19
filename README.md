@@ -200,7 +200,7 @@ print("Linear Regression")
 print(f"Mean Squared Error: {mse}")
 print(f"R-squared: {r2}")
 ```
-+ kodun çıktısı aşağıdaki görselde verilmiştir.
++ kodun çıktısı görselde verilmiştir.
 ![lineer](https://github.com/user-attachments/assets/6f2f5569-a775-49e7-98ad-d993dfd51a59)
 
 ### K-Means
@@ -334,12 +334,16 @@ labels = kmeans.labels_
 silhouette_avg = silhouette_score(reduced_data, labels)
 print(f"Silhouette Score: {silhouette_avg:.2f}")
 ```
-+ kodun çıktısı aşağıdaki görselde verilmiştir.
++ kodun çıktıları görselde verilmiştir.
 ![PCA4](https://github.com/user-attachments/assets/d0101922-4ba9-4e53-9f63-dcb5912e9a4b)
 ![PCA5](https://github.com/user-attachments/assets/68cb3d79-dae7-40a9-9314-b8adb9c35f91)
 
 ## 8.Skor Değerlendirmesi ve Doğruluk Oranı Artırma Yöntemleri
-
+### Linear Regression Performans Değerlendirmesi
+#### Performans
+Mean Squared Error (MSE) 0.0829, modelin tahminleri ile gerçek değerler arasındaki farkların karesinin ortalamasının düşük olduğunu, ancak hala hata olduğunu gösteriyor. R-squared (R²) değeri ise 0.4777, modelin verinin %47.77'sini doğru tahmin edebildiğini belirtir, bu da doğrusal regresyon için ortalama bir performansı ifade eder ve daha iyi sonuçlar elde edilebileceğini gösterir.
+#### Yorum
+Linear Regression, verinin doğrusal ilişkilerini öğrenme konusunda başarılı olsa da, R² değeri, modelin yeterince güçlü olmadığına işaret ediyor. Bu nedenle, doğrusal ilişkilerin güçlü olduğu veri setlerinde bile daha iyi sonuçlar elde edilebilir.
 
 
 
