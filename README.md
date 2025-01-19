@@ -8,9 +8,9 @@ Beslenme bilgilerinin, vücut ağırlığının ve enerji seviyesinin, ruh hali 
 4. [Veri Setini Anlama ve İşleme](#4-veri-setini-anlama-ve-işleme)
 5. [Veri Görselleştirme](#5-veri-görselleştirme)
 6. [Korelasyon Matrisi](#6-korelasyon-matrisi)
-7. [Kodun İşileyişini Açıklayan Video](#7-kodun-işleyişini-açıklayan-video)
-8. [Makine Öğrenmesi Modellerinin Eğitimi ve Skorları](#8-makine-öğrenmesi-modellerinin-eğitimi-ve-skorları)
-9. [Skor Değerlendirmesi ve Doğruluk Oranı Artırma Yöntemleri](#9-skor-değerlendirmesi-ve-doğruluk-oranı-arttırma-yöntemleri)
+7. [Makine Öğrenmesi Modellerinin Eğitimi ve Skorları](#7-makine-öğrenmesi-modellerinin-eğitimi-ve-skorları)
+8. [Skor Değerlendirmesi ve Doğruluk Oranı Artırma Yöntemleri](#8-skor-değerlendirmesi-ve-doğruluk-oranı-arttırma-yöntemleri)
+9. [Kodun İşileyişini Açıklayan Video](#9-kodun-işleyişini-açıklayan-video)
 10. [Sertifikalar](#10-sertifikalar)
 
 ## 1. Veri Seti Hakkında Bilgi
@@ -142,16 +142,203 @@ print("Yeni Ruh Sağlığı Dağılımı:")
 print(y_resampled.value_counts())
 ```
 ### İlgili Görseller ve Veri Seti Son HAli
-![image](https://github.com/user-attachments/assets/4ed4bb48-6454-402a-99c6-cdb8f9338338)</br>
-![image](https://github.com/user-attachments/assets/be6886a5-cb24-4385-b75b-26c466dc2deb)
+![veridengesizliği](https://github.com/user-attachments/assets/4ed4bb48-6454-402a-99c6-cdb8f9338338)</br>
+![datasonhal](https://github.com/user-attachments/assets/be6886a5-cb24-4385-b75b-26c466dc2deb)
 
+## 5. Veri Görselleştirme
+Verileri görselleştirmek için histogram ve boxplot kullanıldı. Görüntüleri aşağıda verilmiştir.
+### Histogramlar
+![histogram](https://github.com/user-attachments/assets/a3f0f4b5-f0b3-46d0-bfa7-f7cd755aebf8)
+### Boxplot
+![boxplot](https://github.com/user-attachments/assets/1f5f0a54-66a4-49a3-be7a-be7a3efd1e26)
 
+## 6. Korelasyon Matrisi
+![korelasyon](https://github.com/user-attachments/assets/d750f848-95d5-4dce-8ce9-d8a2c78b2653)
 
+## 7. Makine Öğrenmesi Modellerinin Eğitimi ve Skorları
+Aşağıda adım adım uygulanan algoritmalar kendi başlıkları altında verilmiştir.</br>
+### Random Forest
+Random Forest, karar ağaçlarından (decision trees) oluşan bir topluluk yöntemidir. Birden fazla karar ağacı eğitilir ve sonuçlar oylama (sınıflandırma) veya ortalama (regresyon) yöntemiyle birleştirilir. Bu algoritmayı kullanarak aşağıdaki kod bloğu yazıldı: 
+```python
+# Bağımlı ve bağımsız değişkenlerin ayrılması
+X = data.drop(columns=["Mental_Health"])
+y = data["Mental_Health"]
 
+# Eğitim ve test setine bölme
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
+# Random Forest Modeli
+rf = RandomForestClassifier()
+rf.fit(X_train, y_train)
+y_pred_rf = rf.predict(X_test)
 
+# Performans Değerlendirmesi
+print("Random Forest")
+print(classification_report(y_test, y_pred_rf))
+```
++ kodun çıktısı aşağıdaki görselde verilmiştir.
+![random](https://github.com/user-attachments/assets/1adb4514-7688-4080-b184-7857fc311eab)
 
+### Linear Regression
+Lineer regresyon, bağımlı bir değişken (y) ile bir veya daha fazla bağımsız değişken (x) arasındaki doğrusal ilişkiyi modellemek için kullanılan bir yöntemdir.  Bu algoritmayı kullanarak aşağıdaki kod bloğu yazıldı: 
+```python
+# Bağımlı ve bağımsız değişkenlerin ayrılması
+X = data.drop(columns=["Mental_Health"])
+y = data["Mental_Health"]
 
+# Eğitim ve test setine bölme
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# Linear Regression Modeli
+lr = LinearRegression()
+lr.fit(X_train, y_train)
+y_pred_lr = lr.predict(X_test)
+# Performans Değerlendirmesi
+mse = mean_squared_error(y_test, y_pred_lr)
+r2 = r2_score(y_test, y_pred_lr)
+print("Linear Regression")
+print(f"Mean Squared Error: {mse}")
+print(f"R-squared: {r2}")
+```
++ kodun çıktısı aşağıdaki görselde verilmiştir.
+![lineer](https://github.com/user-attachments/assets/6f2f5569-a775-49e7-98ad-d993dfd51a59)
+
+### K-Means
+ K-Means, bir veri setini önceden belirlenmiş 𝐾 sayıda kümeye ayıran bir kümeleme algoritmasıdır. Her bir nokta, en yakın küme merkezine (centroid) atanır. Bu algoritma için öncelikle uygun küme sayısı bulunmak için aşağıdaki kod bloğu yazıldı: 
+ ```python
+scaler = StandardScaler()
+scaled_data = scaler.fit_transform(data)
+
+inertias = []
+silhouettes = []
+# Burdaki range değerleri sırasıyla (10, 20), (21, 31), (40, 80) şekilne denendi
+for k in range(10, 20):
+    kmeans = KMeans(n_clusters=k, random_state=42)
+    kmeans.fit(scaled_data)
+    inertias.append(kmeans.inertia_)
+    silhouettes.append(silhouette_score(scaled_data, kmeans.labels_))
+
+# Grafikleri çizdirme
+plt.figure(figsize=(12, 6))
+plt.subplot(1, 2, 1)
+plt.plot(range(10, 20), inertias, marker='o')
+plt.title("Elbow Method")
+plt.xlabel("Küme Sayısı")
+plt.ylabel("Inertia")
+
+plt.subplot(1, 2, 2)
+plt.plot(range(10, 20), silhouettes, marker='o')
+plt.title("Silhouette Analysis")
+plt.xlabel("Küme Sayısı")
+plt.ylabel("Silhouette Score")
+plt.show()
+```
+Ardından uygun K (küme sayısı) değeri 11 olarak belirlendi ve ona göre aşağıdaki kod bloğu uygulandı: 
+```python
+# Veri ön işleme (ölçekleme)
+scaler = StandardScaler()
+scaled_data = scaler.fit_transform(data)
+
+# K-Means modelini eğitme
+kmeans = KMeans(n_clusters=11, random_state=42)  # Küme sayısı: 11
+kmeans.fit(scaled_data)
+
+# Kümelere atanan etiketler
+data["Cluster"] = kmeans.labels_
+
+#  Performans analizi
+# a) Inertia (toplam hata kareleri toplamı)
+inertia = kmeans.inertia_
+
+# b) Silhouette Score (kümelerin ayırt edilebilirliği)
+silhouette_avg = silhouette_score(scaled_data, kmeans.labels_)
+
+# Sonuçları görüntüleme
+print("Kümeleme Sonuçları:")
+print(data)
+print("\nPerformans Analizi:")
+print(f"Inertia (Hata Kareleri Toplamı): {inertia:.2f}")
+print(f"Silhouette Score: {silhouette_avg:.2f}")
+```
++ Kodların çıktısı aşağıdaki verilmiştir.
+![kume1](https://github.com/user-attachments/assets/5ec4f106-d652-4bd3-99fe-123146963cc2)</br>
+![kume2](https://github.com/user-attachments/assets/837105b6-fc42-40ab-a4fd-f8b6ef2e1321)</br>
+![kume3](https://github.com/user-attachments/assets/572c6fe9-4e19-4d44-b079-4984033b2945)</br>
+![performanss](https://github.com/user-attachments/assets/79315384-9256-4867-addf-321626bb3465)
+
+### PCA 
+PCA, yüksek boyutlu veriyi daha düşük boyutlara indirerek ana bileşenleri (principal components) çıkaran bir boyut indirgeme yöntemidir. Verideki değişkenlik (varyans) korunmaya çalışılır.  Bu algoritmayı kullanarak aşağıdaki kod bloğu yazıldı: 
+```python
+#  Veriyi Ölçeklendirme (Standartlaştırma)
+scaler = StandardScaler()
+scaled_data = scaler.fit_transform(data)
+
+#  PCA Algoritmasını Uygulama
+pca = PCA(n_components=None)  # Tüm bileşenleri çıkar
+pca_data = pca.fit_transform(scaled_data)
+
+#  Performans Analizi - Açıklanan Varyans Oranı
+explained_variance_ratio = pca.explained_variance_ratio_
+cumulative_variance_ratio = np.cumsum(explained_variance_ratio)
+
+#  Açıklanan Varyans Oranını Görselleştirme
+plt.figure(figsize=(10, 6))
+plt.bar(range(1, len(explained_variance_ratio) + 1), explained_variance_ratio, alpha=0.7, align='center', label='Individual Variance')
+plt.step(range(1, len(cumulative_variance_ratio) + 1), cumulative_variance_ratio, where='mid', label='Cumulative Variance')
+plt.xlabel('Temel Bileşen İndeksi')
+plt.ylabel('Açıklanan Varyans Oranı')
+plt.title('Temel Bileşenlere Göre Açıklanan Varyans')
+plt.legend(loc='best')
+plt.grid(True)
+plt.show()
+
+#  En Önemli Bileşenleri Belirleme
+# Örneğin, %95 açıklanan varyansa ulaşmak için gereken bileşen sayısı
+n_components_95 = np.argmax(cumulative_variance_ratio >= 0.95) + 1
+print(f"%95 varyansı açıklamak için gerekli bileşen sayısı: {n_components_95}")
+
+#  PCA ile Düşük Boyutlu Veriyi Elde Etme
+# %95 varyansı açıklayan bileşenlerle yeniden PCA uygula
+pca_optimized = PCA(n_components=n_components_95)
+reduced_data = pca_optimized.fit_transform(scaled_data)
+
+#  Sonuçları Görselleştirme (2D Örneği)
+if n_components_95 >= 2:
+    plt.figure(figsize=(8, 6))
+    plt.scatter(reduced_data[:, 0], reduced_data[:, 1], alpha=0.7, cmap='viridis')
+    plt.title('PCA Düşük Boyutlu Görselleştirme (2 Bileşen)')
+    plt.xlabel('Birinci Temel Bileşen')
+    plt.ylabel('İkinci Temel Bileşen')
+    plt.grid(True)
+    plt.show()
+```
++ kodun çıktısı aşağıdaki görselde verilmiştir.
+![PCA1](https://github.com/user-attachments/assets/349cb897-b965-458e-ac69-3ee5762f09c2)</br>
+![PCA2](https://github.com/user-attachments/assets/4fc7f261-a6ff-4872-8f3a-967548436995)
+
+Bu algoritmanın performans değerlendirmesi için Aşağıdaki iki kod yazıldı:
+```python
+# Orijinal boyuta yeniden yapılandırma
+reconstructed_data = pca_optimized.inverse_transform(reduced_data)
+
+# Yeniden yapılandırma hatası (Mean Squared Error)
+reconstruction_error = np.mean((scaled_data - reconstructed_data) ** 2)
+print(f"Yeniden Yapılandırma Hatası: {reconstruction_error:.4f}")
+#--------------------------------------------------------------
+# Kümeleme
+kmeans = KMeans(n_clusters=11, random_state=42)
+kmeans.fit(reduced_data)
+labels = kmeans.labels_
+
+# Silhouette Score hesaplama
+silhouette_avg = silhouette_score(reduced_data, labels)
+print(f"Silhouette Score: {silhouette_avg:.2f}")
+```
++ kodun çıktısı aşağıdaki görselde verilmiştir.
+![PCA4](https://github.com/user-attachments/assets/d0101922-4ba9-4e53-9f63-dcb5912e9a4b)
+![PCA5](https://github.com/user-attachments/assets/68cb3d79-dae7-40a9-9314-b8adb9c35f91)
+
+## 8.Skor Değerlendirmesi ve Doğruluk Oranı Artırma Yöntemleri
 
 
 
