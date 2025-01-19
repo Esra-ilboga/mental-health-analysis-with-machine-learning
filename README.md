@@ -5,14 +5,13 @@ Beslenme bilgilerinin, vücut ağırlığının ve enerji seviyesinin, ruh hali 
 1. [Veri Seti Hakkında Bilgi](#1-veri-seti-hakkında-bilgi)
 2. [Gerekli Kütüphaneleri Dahil Etme](#2-gerekli-kütüphaneleri-dahil-etme)
 3. [Veri Yükleme ve Görüntüleme](#3-veri-yükleme-ve-görüntüleme)
-4. [Veri Seti Hakkında Bilgi](#4-veri-seti-özeti)
-5. [Veri Setini Anlama ve İşleme](#5-veri-setini-anlama-ve-işleme)
-6. [Veri Görselleştirme](#6-veri-görselleştirme)
-7. [Korelasyon Matrisi](#7-korelasyon-matrisi)
-8. [Kodun İşileyişini Açıklayan Video](#8-kodun-işleyişini-açıklayan-video)
-9. [Makine Öğrenmesi Modellerinin Eğitimi ve Skorları](#9-makine-öğrenmesi-modellerinin-eğitimi-ve-skorları)
-10. [Skor Değerlendirmesi ve Doğruluk Oranı Artırma Yöntemleri](#10-skor-değerlendirmesi-ve-doğruluk-oranı-arttırma-yöntemleri)
-11. [Sertifikalar](#11-sertifikalar)
+4. [Veri Setini Anlama ve İşleme](#4-veri-setini-anlama-ve-işleme)
+5. [Veri Görselleştirme](#5-veri-görselleştirme)
+6. [Korelasyon Matrisi](#6-korelasyon-matrisi)
+7. [Kodun İşileyişini Açıklayan Video](#7-kodun-işleyişini-açıklayan-video)
+8. [Makine Öğrenmesi Modellerinin Eğitimi ve Skorları](#8-makine-öğrenmesi-modellerinin-eğitimi-ve-skorları)
+9. [Skor Değerlendirmesi ve Doğruluk Oranı Artırma Yöntemleri](#9-skor-değerlendirmesi-ve-doğruluk-oranı-arttırma-yöntemleri)
+10. [Sertifikalar](#10-sertifikalar)
 
 ## 1. Veri Seti Hakkında Bilgi
 Veri seti, 9 sütun ve 100000 satırdan oluşmaktadır. Bu sütunlar; **Product Name** , **Calories** , **Body Type** , **Mood** , **Energy**, **Total Fat** , **Total Sugars**, **Carbohydrates (Carbs)** ve **Protein**'dir. Bu sütunlar aşağıdaki tabloda detaylandırılmıştır:
@@ -70,4 +69,103 @@ data.isnull().sum()
 ```
 ### Ekran Görüntüleri 
 ![Verisetibilgi](https://github.com/user-attachments/assets/387eeee8-a361-472e-898b-eb4c95227c1b)
+
+## 4. Veri Setini Anlama ve İşleme
+Verileri anladıktan sonra bu verileri istenen şekilde yani daha kullanılabilir hale getirmek gerekmektedir. Eksik veriler silinmeli veyahut eksik verileri bulundukları sütundaki verilerin medyanıyla doldurmalıyız. Object(kategorik) veriler sayısal verilere dönüştürülmeli. Veri dengesizlikleri varsa veriler dengeli hale getirilmeli. Gereksiz sütunlar varsa çıkarılmalı.Aşağıda bu işlemleri gerçekleştirdiğim kodlar yazmaktadır:
+```python
+# Veri setindeki eksik değerleri, sütunların medyan değerleriyle doldurur.
+data_filled = data.fillna(data.median())
+#---------------------------------------------------------------
+# Belirtilen sütunlardaki değerlerden 'g' harfini kaldırır ve veriyi float türüne dönüştürür.
+for column in ["Total Fat", "Total Sugars", "Carbohydrates (Carbs)", "Protein"]:
+    data[column] = data[column].str.replace("g", "").astype(float)
+#---------------------------------------------------------------
+# 'Product Name' sütununu veri setinden çıkarır, her satır için benzersiz bir 'Product ID' oluşturur
+# ve 'Product ID' sütununu veri setinin ilk sütunu olacak şekilde yeniden sıralar.
+data = data.drop("Product Name", axis=1)
+data["Product ID"] = range(1, len(data) + 1)
+data = data[["Product ID"] + [col for col in data.columns if col != "Product ID"]]
+print("Yeni Veri Seti:")
+print(data)
+#---------------------------------------------------------------
+data = pd.DataFrame(data)
+
+# Kategorik sütunları seçme
+categorical_columns = data.select_dtypes(include=['object']).columns
+
+# One-Hot Encoding uygulama ve veri çerçevesini güncelleme
+data = pd.get_dummies(data, columns=categorical_columns)
+
+boolean_columns = data.select_dtypes(include=['bool']).columns
+for column in boolean_columns:
+    data[column] = data[column].astype(int)
+
+# Güncellenmiş veri setini görüntüleme
+data.head()
+#--------------------------------------------------------------
+data = pd.DataFrame(data)
+
+# Ruh sağlığı sütununu oluşturma
+data["Mental_Health"] = ((data["Mood_Happy"] == 1) | (data["Mood_Neutral"] == 1)).astype(int)
+#---------------------------------------------------------------
+# 'Mood_Happy', 'Mood_Neutral' ve 'Mood_Sad' sütunlarını veri setinden kaldırır 
+# çünkü bu sütunlardaki bilgiler daha önce 'Mental_Health' sütununda özetlenmiştir.
+data = data.drop(columns=["Mood_Happy", "Mood_Neutral", "Mood_Sad"])
+data.head()
+#--------------------------------------------------------------
+# 'Product ID' sütununu veri setinden kaldırır 
+# çünkü bu sütun analiz veya modelleme için gerekli değildir.
+data.drop(columns=['Product ID'], inplace=True)
+#--------------------------------------------------------------
+# 'Mental_Health' sütunundaki sınıf dağılımını normalleştirilmiş olarak hesaplar
+# ve bu dağılımı yazdırır.
+class_distribution = data['Mental_Health'].value_counts(normalize=True)
+print("Ruh sağlığı oranları: ")
+print(class_distribution)
+
+# 'Mental_Health' sütunundaki sınıfların görsel olarak dağılımını gösteren bir countplot çizer.
+plt.figure(figsize=(8, 6))
+sns.countplot(x='Mental_Health', data=data)
+plt.title("Ruh sağlığı dağılımı")
+plt.show()
+#--------------------------------------------------------------
+# Bağımsız ve bağımlı değişkenleri ayır
+X = data.drop('Mental_Health', axis=1)
+y = data['Mental_Health']
+
+# SMOTE ile oversampling
+smote = SMOTE(random_state=42)
+X_resampled, y_resampled = smote.fit_resample(X, y)
+
+# Yeni sınıf dağılımını kontrol et
+print("Yeni Ruh Sağlığı Dağılımı:")
+print(y_resampled.value_counts())
+```
+### İlgili Görseller ve Veri Seti Son HAli
+![image](https://github.com/user-attachments/assets/4ed4bb48-6454-402a-99c6-cdb8f9338338)</br>
+![image](https://github.com/user-attachments/assets/be6886a5-cb24-4385-b75b-26c466dc2deb)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
