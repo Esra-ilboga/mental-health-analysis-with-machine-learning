@@ -9,7 +9,7 @@ Beslenme bilgilerinin, vücut ağırlığının ve enerji seviyesinin, ruh hali 
 5. [Veri Görselleştirme](#5-veri-görselleştirme)
 6. [Korelasyon Matrisi](#6-korelasyon-matrisi)
 7. [Makine Öğrenmesi Modellerinin Eğitimi ve Skorları](#7-makine-öğrenmesi-modellerinin-eğitimi-ve-skorları)
-8. [Skor Değerlendirmesi ve Doğruluk Oranı Artırma Yöntemleri](#8-skor-değerlendirmesi-ve-doğruluk-oranı-arttırma-yöntemleri)
+8. [Skor Değerlendirmesi](#8-skor-değerlendirmesi)
 9. [Kodun İşileyişini Açıklayan Video](#9-kodun-işleyişini-açıklayan-video)
 10. [Sertifikalar](#10-sertifikalar)
 
@@ -338,7 +338,7 @@ print(f"Silhouette Score: {silhouette_avg:.2f}")
 ![PCA4](https://github.com/user-attachments/assets/d0101922-4ba9-4e53-9f63-dcb5912e9a4b)
 ![PCA5](https://github.com/user-attachments/assets/68cb3d79-dae7-40a9-9314-b8adb9c35f91)
 
-## 8.Skor Değerlendirmesi ve Doğruluk Oranı Artırma Yöntemleri
+## 8.Skor Değerlendirmesi
 ### Linear Regression Performans Değerlendirmesi
 #### Performans
 Mean Squared Error (MSE) 0.0829, modelin tahminleri ile gerçek değerler arasındaki farkların karesinin ortalamasının düşük olduğunu, ancak hala hata olduğunu gösteriyor. R-squared (R²) değeri ise 0.4777, modelin verinin %47.77'sini doğru tahmin edebildiğini belirtir, bu da doğrusal regresyon için ortalama bir performansı ifade eder ve daha iyi sonuçlar elde edilebileceğini gösterir.
