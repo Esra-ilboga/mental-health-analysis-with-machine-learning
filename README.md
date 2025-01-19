@@ -2,18 +2,19 @@
 Beslenme bilgilerinin, vücut ağırlığının ve enerji seviyesinin, ruh hali üzerindeki etkisi analiz edilmek üzere bu proje gelişitirilmiştir. Kullanılan veri setine [buradan](https://www.kaggle.com/datasets/inpursuitofnothing/nutrition-vs-weight-mood-energy-dataset) erişebilirsiniz. Bu projede kullanılan makine öğrenmesi algoritmalarından ikisi Supervised Learning algoritmalarından  Linear Regression ve Random Forest, diğer ikisi de Unsupervised Learning algoritmalarından K-Means ve PCA'dır. Gerekli analizlerin yapılması için makine öğrenmesi algoritmalarından önce data processing(veri işleme)  gerçekleştirilmiştir.
 ## İçindekiler
 
-1. [Veri Seti Hakkında Bilgi](#1-veri-seti-hakkında-bilgi)
-2. [Gerekli Kütüphaneleri Dahil Etme](#2-gerekli-kütüphaneleri-dahil-etme)
-3. [Veri Yükleme ve Görüntüleme](#3-veri-yükleme-ve-görüntüleme)
-4. [Veri Setini Anlama ve İşleme](#4-veri-setini-anlama-ve-işleme)
-5. [Veri Görselleştirme](#5-veri-görselleştirme)
-6. [Korelasyon Matrisi](#6-korelasyon-matrisi)
-7. [Makine Öğrenmesi Modellerinin Eğitimi ve Skorları](#7-makine-öğrenmesi-modellerinin-eğitimi-ve-skorları)
-8. [Skor Değerlendirmesi](#8-skor-değerlendirmesi)
-9. [Kodun İşileyişini Açıklayan Video](#9-kodun-işleyişini-açıklayan-video)
-10. [Sertifikalar](#10-sertifikalar)
+1. [Veri Seti Hakkında Bilgi](#veri-seti-hakkında-bilgi)
+2. [Gerekli Kütüphaneleri Dahil Etme](#gerekli-kütüphaneleri-dahil-etme)
+3. [Veri Yükleme ve Görüntüleme](#veri-yükleme-ve-görüntüleme)
+4. [Veri Setini Anlama ve İşleme](#veri-setini-anlama-ve-işleme)
+5. [Veri Görselleştirme](#veri-görselleştirme)
+6. [Korelasyon Matrisi](#korelasyon-matrisi)
+7. [Makine Öğrenmesi Modellerinin Eğitimi ve Skorları](#makine-öğrenmesi-modellerinin-eğitimi-ve-skorları)
+8. [Skor Değerlendirmesi](#skor-değerlendirmesi)
+9. [Kodun İşleyişini Açıklayan Video](#kodun-işleyişini-açıklayan-video)
+10. [Sertifikalar](#sertifikalar)
 
-## 1. Veri Seti Hakkında Bilgi
+
+## Veri Seti Hakkında Bilgi
 Veri seti, 9 sütun ve 100000 satırdan oluşmaktadır. Bu sütunlar; **Product Name** , **Calories** , **Body Type** , **Mood** , **Energy**, **Total Fat** , **Total Sugars**, **Carbohydrates (Carbs)** ve **Protein**'dir. Bu sütunlar aşağıdaki tabloda detaylandırılmıştır:
 
 | **Sütun Adı**              | **Veri Tipi** | **Açıklama**                                                                  |
@@ -28,7 +29,7 @@ Veri seti, 9 sütun ve 100000 satırdan oluşmaktadır. Bu sütunlar; **Product 
 | `Carbohydrates (Carbs)`    | Kategorik     | Karbonhidrat miktarı (g cinsinden).                                           |
 | `Protein`                  | Kategorik     | Protein miktarı (g cinsinden).                                                |
 
-## 2. Gerekli Kütüphaneleri Dahil Etme
+## Gerekli Kütüphaneleri Dahil Etme
 Projede veriyi işlemek, algoritmaları uygulamak, doğruluk değerlendirmelerini yapmak ve görselleştirmeler yapabilmek için bazı kütüphaneler dahil etmeliyiz. 
 
 ```python
@@ -52,7 +53,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score
 ```
 
-## 3. Veri Yükleme ve Görüntüleme
+## Veri Yükleme ve Görüntüleme
 Veriyi projeye dahil etmek ve görüntülemek için aşağıdaki kodlar yazılır:
 ```python
 # Veri seti yükleme
@@ -70,7 +71,7 @@ data.isnull().sum()
 ### Ekran Görüntüleri 
 ![Verisetibilgi](https://github.com/user-attachments/assets/387eeee8-a361-472e-898b-eb4c95227c1b)
 
-## 4. Veri Setini Anlama ve İşleme
+## Veri Setini Anlama ve İşleme
 Verileri anladıktan sonra bu verileri istenen şekilde yani daha kullanılabilir hale getirmek gerekmektedir. Eksik veriler silinmeli veyahut eksik verileri bulundukları sütundaki verilerin medyanıyla doldurmalıyız. Object(kategorik) veriler sayısal verilere dönüştürülmeli. Veri dengesizlikleri varsa veriler dengeli hale getirilmeli. Gereksiz sütunlar varsa çıkarılmalı.Aşağıda bu işlemleri gerçekleştirdiğim kodlar yazmaktadır:
 ```python
 # Veri setindeki eksik değerleri, sütunların medyan değerleriyle doldurur.
@@ -145,17 +146,17 @@ print(y_resampled.value_counts())
 ![veridengesizliği](https://github.com/user-attachments/assets/4ed4bb48-6454-402a-99c6-cdb8f9338338)</br>
 ![datasonhal](https://github.com/user-attachments/assets/be6886a5-cb24-4385-b75b-26c466dc2deb)
 
-## 5. Veri Görselleştirme
+## Veri Görselleştirme
 Verileri görselleştirmek için histogram ve boxplot kullanıldı. Görüntüleri aşağıda verilmiştir.
 ### Histogramlar
 ![histogram](https://github.com/user-attachments/assets/a3f0f4b5-f0b3-46d0-bfa7-f7cd755aebf8)
 ### Boxplot
 ![boxplot](https://github.com/user-attachments/assets/1f5f0a54-66a4-49a3-be7a-be7a3efd1e26)
 
-## 6. Korelasyon Matrisi
+## Korelasyon Matrisi
 ![korelasyon](https://github.com/user-attachments/assets/d750f848-95d5-4dce-8ce9-d8a2c78b2653)
 
-## 7. Makine Öğrenmesi Modellerinin Eğitimi ve Skorları
+## Makine Öğrenmesi Modellerinin Eğitimi ve Skorları
 Aşağıda adım adım uygulanan algoritmalar kendi başlıkları altında verilmiştir.</br>
 ### Random Forest
 Random Forest, karar ağaçlarından (decision trees) oluşan bir topluluk yöntemidir. Birden fazla karar ağacı eğitilir ve sonuçlar oylama (sınıflandırma) veya ortalama (regresyon) yöntemiyle birleştirilir. Bu algoritmayı kullanarak aşağıdaki kod bloğu yazıldı: 
@@ -338,7 +339,7 @@ print(f"Silhouette Score: {silhouette_avg:.2f}")
 ![PCA4](https://github.com/user-attachments/assets/d0101922-4ba9-4e53-9f63-dcb5912e9a4b)
 ![PCA5](https://github.com/user-attachments/assets/68cb3d79-dae7-40a9-9314-b8adb9c35f91)
 
-## 8.Skor Değerlendirmesi
+## Skor Değerlendirmesi
 ### Linear Regression Performans Değerlendirmesi
 #### Performans
 Mean Squared Error (MSE) 0.0829, modelin tahminleri ile gerçek değerler arasındaki farkların karesinin ortalamasının düşük olduğunu, ancak hala hata olduğunu gösteriyor. R-squared (R²) değeri ise 0.4777, modelin verinin %47.77'sini doğru tahmin edebildiğini belirtir, bu da doğrusal regresyon için ortalama bir performansı ifade eder ve daha iyi sonuçlar elde edilebileceğini gösterir.
@@ -363,10 +364,10 @@ PCA, veriyi daha düşük boyutlarda temsil etmede başarılı olsa da, düşük
 Random Forest, yüksek precision, recall, F1-score ve accuracy değerleriyle mükemmel bir sınıflandırma başarısı sergileyerek bu dört algoritma arasında en iyi performansı gösteriyor. Linear Regression, doğrusal olmayan verilerle çalışırken sınırlı bir performans sergileyip R²'nin 0.4777 olmasıyla yalnızca veri setinin yarısından biraz fazlasını açıklayabiliyor. K-Means, düşük Silhouette Score değeriyle kümelenmiş veri setlerinde başarılı olamayarak parametre ayarlarının ya da farklı bir kümeleme yönteminin gerekebileceğini gösteriyor. PCA ise boyut indirgeme ve görselleştirme için faydalı olsa da kümeleme başarısı sınırlıdır. 
 Bu verilere dayanarak Random Forest algoritması, diğerlerinden çok daha iyi sonuçlar veriyor ve en iyi performansı sergileyen modeldir.
 
-## 9. Kodun İşileyişini Açıklayan Video
+## Kodun İşleyişini Açıklayan Video
 Projeyi kısaca açıkladığım youtube videosuna erişmek için [YotubeLinki](https://youtu.be/72kCtWODcto) yazan yere tıklayınız.
 
-## 10. Sertifikalar
+## Sertifikalar
 
 | Makine Öğrenimi | Derin Öğrenme | Python 101 | Python 201 | Python 301 | Python 401 | Makine 101 |
 |-----------------|---------------|------------|------------|------------|------------|------------|
