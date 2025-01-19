@@ -373,13 +373,6 @@ Projeyi kısaca açıkladığım youtube videosuna erişmek için [YotubeLinki](
 | ![makine](https://github.com/user-attachments/assets/f504392d-fe51-4c48-91bd-c4104bae4db6) | ![derin](https://github.com/user-attachments/assets/f5066960-ec29-43e9-a774-6aefe1097f5f) | ![python101](https://github.com/user-attachments/assets/6be86a8a-d6eb-49d9-b979-57e487a77c3e) | ![python201](https://github.com/user-attachments/assets/2fc60108-7e17-4e70-ab73-040f3803abe3) | ![python301](https://github.com/user-attachments/assets/ef29e803-4625-45cb-aa5a-c8c0ea44d7fc) | ![python401](https://github.com/user-attachments/assets/068e4942-2ccc-4722-a65d-7ed650347322) | ![makine101](https://github.com/user-attachments/assets/cc7c5532-47c5-42fb-ad35-d68c6444b1a6) |
 
 
-![makine](https://github.com/user-attachments/assets/f504392d-fe51-4c48-91bd-c4104bae4db6)
-![derin](https://github.com/user-attachments/assets/f5066960-ec29-43e9-a774-6aefe1097f5f)
-![python101](https://github.com/user-attachments/assets/6be86a8a-d6eb-49d9-b979-57e487a77c3e)
-![python201](https://github.com/user-attachments/assets/2fc60108-7e17-4e70-ab73-040f3803abe3)
-![python301](https://github.com/user-attachments/assets/ef29e803-4625-45cb-aa5a-c8c0ea44d7fc)
-![python401](https://github.com/user-attachments/assets/068e4942-2ccc-4722-a65d-7ed650347322)
-![makine101](https://github.com/user-attachments/assets/cc7c5532-47c5-42fb-ad35-d68c6444b1a6)
 
 
 
