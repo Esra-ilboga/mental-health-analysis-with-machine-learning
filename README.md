@@ -3,15 +3,16 @@ Beslenme bilgilerinin, vücut ağırlığının ve enerji seviyesinin, ruh hali 
 ## İçindekiler
 
 1. [Veri Seti Hakkında Bilgi](#1-veri-seti-hakkında-bilgi)
-2. [Veri Yükleme ve Görüntüleme](#2-veri-yükleme-ve-görüntüleme)
-3. [Veri Seti Hakkında Bilgi](#3-veri-seti-özeti)
-4. [Veri Setini Anlama ve İşleme](#4-veri-setini-anlama-ve-işleme)
-5. [Veri Görselleştirme](#5-veri-görselleştirme)
-6. [Korelasyon Matrisi](#6-korelasyon-matrisi)
-7. [Kodun İşileyişini Açıklayan Video](#7-kodun-işleyişini-açıklayan-video)
-8. [Makine Öğrenmesi Modellerinin Eğitimi ve Skorları](#8-makine-öğrenmesi-modellerinin-eğitimi-ve-skorları)
-9. [Skor Değerlendirmesi ve Doğruluk Oranı Artırma Yöntemleri](#9-skor-değerlendirmesi-ve-doğruluk-oranı-arttırma-yöntemleri)
-10. [Sertifikalar](#9-sertifikalar)
+2. [Gerekli Kütüphaneleri Dahil Etme](#2-gerekli-kütüphaneleri-dahil-etme)
+3. [Veri Yükleme ve Görüntüleme](#3-veri-yükleme-ve-görüntüleme)
+4. [Veri Seti Hakkında Bilgi](#4-veri-seti-özeti)
+5. [Veri Setini Anlama ve İşleme](#5-veri-setini-anlama-ve-işleme)
+6. [Veri Görselleştirme](#6-veri-görselleştirme)
+7. [Korelasyon Matrisi](#7-korelasyon-matrisi)
+8. [Kodun İşileyişini Açıklayan Video](#8-kodun-işleyişini-açıklayan-video)
+9. [Makine Öğrenmesi Modellerinin Eğitimi ve Skorları](#9-makine-öğrenmesi-modellerinin-eğitimi-ve-skorları)
+10. [Skor Değerlendirmesi ve Doğruluk Oranı Artırma Yöntemleri](#10-skor-değerlendirmesi-ve-doğruluk-oranı-arttırma-yöntemleri)
+11. [Sertifikalar](#11-sertifikalar)
 
 ## 1. Veri Seti Hakkında Bilgi
 Veri seti, 9 sütun ve 100000 satırdan oluşmaktadır. Bu sütunlar; **Product Name** , **Calories** , **Body Type** , **Mood** , **Energy**, **Total Fat** , **Total Sugars**, **Carbohydrates (Carbs)** ve **Protein**'dir. Bu sütunlar aşağıdaki tabloda detaylandırılmıştır:
@@ -28,5 +29,45 @@ Veri seti, 9 sütun ve 100000 satırdan oluşmaktadır. Bu sütunlar; **Product 
 | `Carbohydrates (Carbs)`    | Kategorik     | Karbonhidrat miktarı (g cinsinden).                                           |
 | `Protein`                  | Kategorik     | Protein miktarı (g cinsinden).                                                |
 
-### Açıklama:
+## 2. Gerekli Kütüphaneleri Dahil Etme
+Projede veriyi işlemek, algoritmaları uygulamak, doğruluk değerlendirmelerini yapmak ve görselleştirmeler yapabilmek için bazı kütüphaneler dahil etmeliyiz. 
+
+```python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report
+from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
+from imblearn.over_sampling import SMOTE
+from sklearn.datasets import load_iris
+from sklearn.impute import SimpleImputer
+from sklearn.metrics import silhouette_score
+from sklearn.decomposition import PCA
+from sklearn.cluster import KMeans
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+```
+
+## 3. Veri Yükleme ve Görüntüleme
+Veriyi projeye dahil etmek ve görüntülemek için aşağıdaki kodlar yazılır:
+```python
+# Veri seti yükleme
+data = pd.read_csv('nutrition_labels.csv')
+
+# Veri setinin ilk beş satırını tablo halinde görme 
+data.head()
+
+# Veriler hakkında detaylı bilgi alma
+data.info()
+
+# null değerler var mı? köntrolünü sağlar
+data.isnull().sum()
+```
+### Ekran Görüntüleri 
+![Verisetibilgi](https://github.com/user-attachments/assets/387eeee8-a361-472e-898b-eb4c95227c1b)
 
