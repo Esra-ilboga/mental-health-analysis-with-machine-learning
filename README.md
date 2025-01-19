@@ -344,11 +344,29 @@ print(f"Silhouette Score: {silhouette_avg:.2f}")
 Mean Squared Error (MSE) 0.0829, modelin tahminleri ile gerçek değerler arasındaki farkların karesinin ortalamasının düşük olduğunu, ancak hala hata olduğunu gösteriyor. R-squared (R²) değeri ise 0.4777, modelin verinin %47.77'sini doğru tahmin edebildiğini belirtir, bu da doğrusal regresyon için ortalama bir performansı ifade eder ve daha iyi sonuçlar elde edilebileceğini gösterir.
 #### Yorum
 Linear Regression, verinin doğrusal ilişkilerini öğrenme konusunda başarılı olsa da, R² değeri, modelin yeterince güçlü olmadığına işaret ediyor. Bu nedenle, doğrusal ilişkilerin güçlü olduğu veri setlerinde bile daha iyi sonuçlar elde edilebilir.
+### Random Forest Performans Değerlendirmesi
+#### Performans
+Modelin Precision, Recall, F1-Score ve Accuracy değerleri tüm sınıflar için 1.00 olup, bu da modelin her iki sınıfı da tamamen doğru şekilde sınıflandırdığını ve yanlış pozitif ya da yanlış negatif oranlarını sıfıra yakın tuttuğunu gösterir. Ayrıca, Accuracy'nin %100 olması, modelin tüm tahminlerinde mükemmel bir performans sergilediğini belirtir.
+#### Yorum
+ Random Forest modeli burada mükemmel bir performans sergiliyor. Precision, recall ve F1-score değerlerinin yüksekliği, modelin her iki sınıfı da doğru bir şekilde tahmin ettiğini ve   1.00'lık sonuçları bazen gerçek dünya verilerinde overfitting’e işaret edebileceğini gösteriyor bu nedenle modelin test verisiyle doğrulanması önemlidir
+ ### K-Means Performans Değerlendirmesi
+#### Performans
+K-Means algoritmasının Inertia değeri 435330.75, kümelerin içindeki örneklerin merkezine olan mesafelerin karesinin toplamının yüksek olduğunu ve bu durumun kümeleme kalitesinin düşük olduğunu gösteriyor. Silhouette Score ise 0.27, kümeler arasındaki ayrımın zayıf olduğunu ve kümeleme kalitesinin yetersiz olduğunu işaret eder, bu da modelin başarılı olmadığına dair bir gösterge sunar.
+#### Yorum
+K-Means'in inertia değeri ve düşük Silhouette Score değeri, modelin veri setindeki yapıyı çok iyi öğrenmediğini ve kümeler arasında net ayrımlar oluşturmakta zorlandığını gösteriyor. Bu durumda, K-Means algoritması daha iyi sonuçlar verebilmesi için parametre ayarlarına veya başka bir kümeleme algoritmasına ihtiyaç duyabilir.
+### PCA Performans Değerlendirmesi
+#### Performans
+PCA modelinin Yeniden Yapılandırma Hatası 0.0335, boyut indirgeme işlemi sonrası orijinal verilere oldukça yakın bir temsil oluşturulduğunu ancak biraz bilgi kaybı yaşandığını gösteriyor. Silhouette Score'un 0.24 olması, PCA'nın elde edilen düşük boyutlu verilere uygun bir şekilde kümeleme yapmada etkili olmadığını ve kümeleme kalitesinin düşük olduğunu işaret eder.
+#### Yorum 
+PCA, veriyi daha düşük boyutlarda temsil etmede başarılı olsa da, düşük Silhouette Score değeri, boyut indirgeme işleminden sonra kümeler arasında çok belirgin bir ayrım olmadığını gösteriyor. Bu, PCA'nın daha çok veriyi görselleştirme veya özellik seçimi için kullanılması gerektiğini gösteriyor.
+### Genel Sonuç ve Değerlendirme
+Random Forest, yüksek precision, recall, F1-score ve accuracy değerleriyle mükemmel bir sınıflandırma başarısı sergileyerek bu dört algoritma arasında en iyi performansı gösteriyor. Linear Regression, doğrusal olmayan verilerle çalışırken sınırlı bir performans sergileyip R²'nin 0.4777 olmasıyla yalnızca veri setinin yarısından biraz fazlasını açıklayabiliyor. K-Means, düşük Silhouette Score değeriyle kümelenmiş veri setlerinde başarılı olamayarak parametre ayarlarının ya da farklı bir kümeleme yönteminin gerekebileceğini gösteriyor. PCA ise boyut indirgeme ve görselleştirme için faydalı olsa da kümeleme başarısı sınırlıdır. 
+Bu verilere dayanarak Random Forest algoritması, diğerlerinden çok daha iyi sonuçlar veriyor ve en iyi performansı sergileyen modeldir.
 
+## 9. Kodun İşileyişini Açıklayan Video
+Projeyi kısaca açıkladığım youtube videosuna erişmek için [YotubeLinki](https://youtu.be/72kCtWODcto) yazan yere tıklayınız.
 
-
-
-
+## 10. Sertifikalar
 
 
 
